@@ -5,7 +5,7 @@ var request = require('request');
 var fs = require('fs');
 /* JsonDB */
 var JsonDB = require('node-json-db');
-const appPath = '/home/pi/blive-server-raspi/';
+const appPath = './';
 
 // show device list for mobile apps
 app.get('/load/allData/:rpiId', function(req, res) {
@@ -19,7 +19,7 @@ app.get('/load/allData/:rpiId', function(req, res) {
 		
 		try {
 			roomName = dbRaspberryToLoad.room[dataZone[x].roomName].name;
-			ipAddress = dbRaspberryToLoad.getData("/controller/" + dataZone[x].controllerName).ip;
+			ipAddress = dbRaspberryToLoad.controller[dataZone[x].controllerName].ip;
 
 			dataZone[x].zoneId		= x;
 			dataZone[x].ipAddress   = ipAddress;
@@ -97,7 +97,7 @@ function loadJsonDb(){
 	//The second argument is used to tell the DB to save after each push 
 	//If you put false, you'll have to call the save() method. 
 	//The third argument is to ask JsonDB to save the database in an human readable format. (default false)
-    jsonDb = new JsonDB('/home/pi/blive-server-raspi/jsonDb', true, false);
+    jsonDb = new JsonDB(appPath + 'jsonDb', true, true);
 
     return jsonDb;
 }
@@ -174,8 +174,8 @@ function filterDevices(getDevice, zoneId, jsonDb, commandVal){
 				case '0':
 					jsonDb.push("/zone/" + zoneId, {status : "off"}, false); 
 				break;
-				default:
-					jsonDb.push("/zone/" + zoneId, {status : "on"}, false); 
+				case '100':
+					jsonDb.push("/zone/" + zoneId, {status : "off"}, false); 
 				break;
 			}
 		break;

@@ -9,7 +9,7 @@ try {
   var JsonDB = require('node-json-db');
   var requestLoop = setInterval(function(){
         request({
-            url: "http://119.235.252.13:777/load/jsonForRaspberry/220318",
+            url: "http://119.235.252.13:777/load/jsonForRaspberry/11001100",
             method: "GET",
         async: true,
         },function(error, response, body){
@@ -106,7 +106,7 @@ try {
 
             function readJson(body = ''){
               var fs = require('fs');
-              var jsonDb = fs.readFileSync('jsonDb.json');
+              var jsonDb = fs.readFileSync(appPath + 'jsonDb.json', "utf8");
               if (jsonDb == "" || jsonDb == null || jsonDb == "{}"){
                   writeJson(JSON.parse(body));
               }
@@ -116,14 +116,10 @@ try {
             function writeJson(content) {
               var fs = require('fs');
               try{
-                var validation = JSON.parse(content);
-                fs.writeFile(appPath + 'jsonDb.json', JSON.stringify(content), (err) => {
-                  if (err) throw err;
-                  console.log('The file has been saved!');
-                });
+                fs.writeFileSync(appPath + 'jsonDb.json', JSON.stringify(content));
               }
               catch(e){
-                console.log('json format failed');
+                console.log('error: ' + e);
               }
             }
         });
