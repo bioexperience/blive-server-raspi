@@ -11,7 +11,6 @@ try {
   var requestLoop = setInterval(function(){
         var fs = require('fs');
         var config = JSON.parse(fs.readFileSync(appPath + 'config.json', 'utf8'));
-        console.log("http://119.235.252.13:777/load/jsonForRaspberry/" + config.raspberryId);
         request({
             url: "http://119.235.252.13:777/load/jsonForRaspberry/" + config.raspberryId,
             method: "GET",
