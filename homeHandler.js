@@ -175,7 +175,7 @@ function filterDevices(getDevice, zoneId, jsonDb, commandVal){
 					jsonDb.push("/zone/" + zoneId, {status : "off"}, false); 
 				break;
 				case '100':
-					jsonDb.push("/zone/" + zoneId, {status : "off"}, false); 
+					jsonDb.push("/zone/" + zoneId, {status : "on"}, false); 
 				break;
 			}
 		break;
