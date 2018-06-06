@@ -4,7 +4,7 @@ try {
   var session = require('express-session');
   var request = require('request');
  
-  const appPath = './' ;
+  const appPath = '/home/pi/blive-server-raspi/' ;
   /* JsonDB */
   var JsonDB = require('node-json-db');
 

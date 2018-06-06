@@ -5,7 +5,30 @@ var request = require('request');
 var fs = require('fs');
 /* JsonDB */
 var JsonDB = require('node-json-db');
-const appPath = './';
+const appPath = '/home/pi/blive-server-raspi/';
+
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+
+/* body-parser */
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+// show device list for mobile apps
+app.get('/', function(req, res) {
+	res.render('index');
+});
+
+app.post('/activation', function(req, res) {
+	var data = req.body;
+	var raspberryId = data.raspberryID;
+	configDb = new JsonDB(appPath + 'config', true, true);
+	configDb.push("/", {raspberryId : raspberryId}, false);
+
+    // res.redirect('/');
+    res.render('redirect');
+});
 
 // show device list for mobile apps
 app.get('/load/allData/:rpiId', function(req, res) {
