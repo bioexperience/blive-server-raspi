@@ -115,6 +115,17 @@ app.get('/execute/:rpiId/:zoneId/:commandVal', function(req, res) {
 
 });
 
+// handling post schedule by devices
+app.post('/post-schedule/devices/:rpiId', function(req, res) {
+	var data = req.body;
+	var raspberryId = req.params.rpiId;
+	scheduleDB = new JsonDB(appPath + 'schedule', true, true);
+	scheduleDB.push("/devices/", data, false);
+
+    // res.redirect('/');
+    res.send('success');
+});
+
 function loadJsonDb(){
 	//The First argument is filename
 	//The second argument is used to tell the DB to save after each push 
