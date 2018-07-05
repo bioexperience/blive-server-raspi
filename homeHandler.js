@@ -119,11 +119,14 @@ app.get('/execute/:rpiId/:zoneId/:commandVal', function(req, res) {
 app.post('/post-schedule/devices/:rpiId', function(req, res) {
 	var data = req.body;
 	var raspberryId = req.params.rpiId;
-	scheduleDB = new JsonDB(appPath + 'schedule', true, true);
-	scheduleDB.push("/devices/", data, false);
-
+	var filterData = data.schedule.replace(/\\/g, "");
+	
+	data.schedule = JSON.parse(filterData);
+	var fs = require('fs');
+	fs.writeFileSync(appPath + 'schedule.json',data,{flag:'w'});
+	
     // res.redirect('/');
-    res.send('success');
+    res.send(data);
 });
 
 function loadJsonDb(){
