@@ -26,7 +26,7 @@ try {
                       value = getValueOn(getDevice.sort);
                       url = "http://" + getDevice.ipAddress + "/" + getDevice.command + "/?value=" + value;
                       controlDevice(url);
-                      dbRaspberryToLoad.push("/zone/" + deviceId, {status : "on"}, false);
+                      dbRaspberryToLoad.push("/zone/" + deviceId[2], {status : "on"}, false);
                   }
                 });
             }
@@ -38,7 +38,7 @@ try {
                     value = getValueOff(getDevice.sort);
                     url = "http://" + getDevice.ipAddress + "/" + getDevice.command + "/?value=" + value;
                     controlDevice(url);
-                    dbRaspberryToLoad.push("/zone/" + deviceId, {status : "off"}, false);  
+                    dbRaspberryToLoad.push("/zone/" + deviceId[2], {status : "off"}, false);  
                   }
                 });
             }

@@ -7,8 +7,9 @@ var fs = require('fs');
 var JsonDB = require('node-json-db');
 const appPath = '/home/pi/blive-server-raspi/';
 
-app.use(express.static('public'));
+app.use(express.static( __dirname + '/public'));
 app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
 
 /* body-parser */
 var bodyParser = require('body-parser');
@@ -123,7 +124,7 @@ app.post('/post-schedule/devices/:rpiId', function(req, res) {
 	
 	data.schedule = JSON.parse(filterData);
 	var fs = require('fs');
-	fs.writeFileSync(appPath + 'schedule.json',data,{flag:'w'});
+	fs.writeFileSync(appPath + 'schedule.json',JSON.stringify(data),{flag:'w'});
 	
     // res.redirect('/');
     res.send(data);
