@@ -117,9 +117,9 @@ try {
 
     function getDeviceDetail(jsonDb, zoneId) {
       var dataZone = jsonDb.getData("/zone");
-      var ipAddress = jsonDb.getData("/controller/" + dataZone[zoneId].controllerName).ip;
-      dataZone[zoneId].zoneId = zoneId;
-      dataZone[zoneId].ipAddress = ipAddress;
+      // var ipAddress = jsonDb.getData("/controller/" + dataZone[zoneId].controllerName).ip;
+      // dataZone[zoneId].zoneId = zoneId;
+      // dataZone[zoneId].ipAddress = ipAddress;
       
       return dataZone[zoneId];
     }
