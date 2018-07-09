@@ -123,7 +123,7 @@ app.post('/post-schedule/devices/:rpiId', function(req, res) {
 	var filterData = data.schedule.replace(/\\/g, "");
 	var date = new Date();
 	var currentDatetime = date.getDate() + "/"
-                + (date.getMonth())  + "/" 
+                + (date.getMonth() + 1 )  + "/" 
                 + date.getFullYear() + " "  
                 + date.getHours() + ":"  
                 + date.getMinutes() + ":" 
