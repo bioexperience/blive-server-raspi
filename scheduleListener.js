@@ -4,7 +4,7 @@ try {
   var session = require('express-session');
   var request = require('request');
  
-  const appPath = '/home/pi/blive-server-raspi/' ;
+  const appPath = '' ;
   /* JsonDB */
   var JsonDB = require('node-json-db');
 
@@ -44,6 +44,39 @@ try {
             }
         }
     }, 1000);
+
+  var requestLoopSyncSchedule = setInterval(function(){
+        var fs = require('fs');
+        var scheduleData = JSON.parse(fs.readFileSync(appPath + 'schedule.json', 'utf8'));
+        var config = JSON.parse(fs.readFileSync(appPath + 'config.json', 'utf8'));
+        var date = new Date;
+        var minutes = date.getMinutes();
+        var hour = date.getHours();
+        var seconds = date.getSeconds();
+        request({
+            url: "http://119.235.252.13:777/load/schedule/" + config.raspberryId,
+            method: "GET",
+            async: true,
+        },function(error, response, body){
+            dataSchedule = JSON.parse(body) ;
+            dateTime = dataSchedule.updated_at.split(" ");
+            var date = new Date;
+            currentDate = date.getDate() + "/" + 
+                          (date.getMonth() + 1) + "/" + 
+                          date.getFullYear();
+            currentTime = date.getHours() + ":" + 
+                          date.getMinutes() + ":" + 
+                          date.getSeconds() ;
+            // console.log(dataSchedule);
+            if (dateTime[0] >= currentDate) {
+                if (dateTime[1] >= currentTime) {
+                  var fs = require('fs');
+                  fs.writeFileSync(appPath + 'schedule.json', JSON.stringify(dataSchedule), {flag:'w'});
+                  console.log("schedule updated..");
+                }
+            }
+        });
+    }, 10000);
 
     function getValueOff(sort) {
         command = "";
