@@ -58,21 +58,23 @@ try {
             method: "GET",
             async: true,
         },function(error, response, body){
-            dataSchedule = JSON.parse(body) ;
-            dateTime = dataSchedule.updated_at.split(" ");
-            var date = new Date;
-            currentDate = date.getDate() + "/" + 
-                          (date.getMonth() + 1) + "/" + 
-                          date.getFullYear();
-            currentTime = date.getHours() + ":" + 
-                          date.getMinutes() + ":" + 
-                          date.getSeconds() ;
-            // console.log(dataSchedule);
-            if (dateTime[0] >= currentDate) {
-                if (dateTime[1] >= currentTime) {
-                  var fs = require('fs');
-                  fs.writeFileSync(appPath + 'schedule.json', JSON.stringify(dataSchedule), {flag:'w'});
-                  console.log("schedule updated..");
+            if (body != undefined || body != null) {
+                dataSchedule = JSON.parse(body) ;
+                dateTime = dataSchedule.updated_at.split(" ");
+                var date = new Date;
+                currentDate = date.getDate() + "/" + 
+                              (date.getMonth() + 1) + "/" + 
+                              date.getFullYear();
+                currentTime = date.getHours() + ":" + 
+                              (date.getMinutes() + 10) + ":" + 
+                              date.getSeconds() ;
+                // console.log(dataSchedule);
+                if (dateTime[0] >= currentDate) {
+                    if (dateTime[1] >= currentTime) {
+                      var fs = require('fs');
+                      fs.writeFileSync(appPath + 'schedule.json', JSON.stringify(dataSchedule), {flag:'w'});
+                      console.log("schedule updated..");
+                    }
                 }
             }
         });
