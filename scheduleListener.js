@@ -66,7 +66,7 @@ try {
                               (date.getMonth() + 1) + "/" + 
                               date.getFullYear();
                 currentTime = date.getHours() + ":" + 
-                              (date.getMinutes() + 10) + ":" + 
+                              (date.getMinutes() - 5) + ":" + 
                               date.getSeconds() ;
                 // console.log(dataSchedule);
                 if (dateTime[0] >= currentDate) {
